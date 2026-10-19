@@ -176,7 +176,7 @@ export const conteudoPadrao: Conteudo = {
       nome: "Locução por IA",
       descricao: "Narração no vídeo",
       preco: 100,
-      video: "",
+      video: "/video/locucao-demo.mp4",
     },
   },
 
@@ -269,7 +269,7 @@ export const conteudoPadrao: Conteudo = {
           "A IA transforma as fotos do imóvel num vídeo que passeia pelos cômodos, como se alguém andasse por dentro ou um drone passasse.",
         paraQuem: "Quem quer vídeo que prende a atenção, no volume do dia a dia.",
         destaques: ["Fotos reais do imóvel, sem inventar ambiente", "15 s, vertical", "Legenda por IA"],
-        video: "",
+        video: "/video/pro-demo.mp4",
         selo: "Posts reais · BR Luani",
       },
       max: {
