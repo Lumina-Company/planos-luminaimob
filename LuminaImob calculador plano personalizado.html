@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculadora LuminaImob</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0d12;--card:#141821;--card2:#1a1f2b;--line:#262c3a;
+  --txt:#e8ebf2;--mut:#8b93a7;--acc:#5b8cff;--acc2:#8b5cf6;
+  --ok:#34d399;--bad:#f87171;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:radial-gradient(1200px 600px at 50% -200px,#1b2440 0%,var(--bg) 60%);color:var(--txt);min-height:100vh}
+.wrap{max-width:960px;margin:0 auto;padding:32px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:24px}
+h1{font-size:22px;margin:0;font-weight:700;letter-spacing:-.02em}
+h1 span{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);font-size:13px;margin-top:4px}
+.tabs{display:flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tabs button{border:0;background:transparent;color:var(--mut);font:600 14px Inter,sans-serif;padding:10px 20px;border-radius:9px;cursor:pointer;transition:.2s}
+.tabs button.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;box-shadow:0 4px 16px rgba(91,140,255,.35)}
+.grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin:0 0 16px;font-weight:600}
+.slider{margin-bottom:22px}
+.slider .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.slider .top span{color:var(--mut);font-size:14px}
+.slider .top b{font-size:22px}
+.slider .ticks{display:flex;justify-content:space-between;color:var(--mut);font-size:11px;margin-top:6px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:99px;background:var(--line);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:4px solid var(--acc);box-shadow:0 0 0 4px rgba(91,140,255,.25);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:4px solid var(--acc);box-shadow:0 0 0 4px rgba(91,140,255,.25);cursor:pointer}
+.result{background:linear-gradient(160deg,#1c2540,var(--card));display:flex;flex-direction:column}
+.price{font-size:44px;font-weight:700;letter-spacing:-.03em;margin:4px 0 4px}
+.price small{font-size:16px;color:var(--mut);font-weight:500}
+.formula{color:var(--mut);font-size:13px;margin-bottom:18px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat span{display:block;color:var(--mut);font-size:12px;margin-bottom:4px}
+.stat b{font-size:17px}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.params{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:760px){.params{grid-template-columns:1fr}}
+.field{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.field:last-child{border-bottom:0}
+.field input{width:110px;background:var(--card2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 10px;font:500 14px Inter,sans-serif;text-align:right;transition:.2s}
+.field input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(91,140,255,.2)}
+.ref{color:var(--mut);font-size:12px;line-height:1.7;margin-top:16px}
+.ref b{color:var(--txt)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1><span>LuminaImob</span> · Calculadora de planos</h1>
+      <div class="sub">Plano personalizado: escolha a duração e a quantidade de vídeos</div>
+    </div>
+    <div class="tabs">
+      <button id="t-basica" class="on" onclick="setCat('basica')">IA Básica</button>
+      <button id="t-max" onclick="setCat('max')">IA Max</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Monte o plano</h2>
+      <div class="slider">
+        <div class="top"><span>Duração por vídeo</span><b id="durV"></b></div>
+        <input type="range" id="dur" min="5" max="60" step="5" value="15">
+        <div class="ticks"><span>5 s</span><span>15 s</span><span>30 s</span><span>45 s</span><span>60 s</span></div>
+      </div>
+      <div class="slider">
+        <div class="top"><span>Vídeos por mês</span><b id="qtdV"></b></div>
+        <input type="range" id="qtd" min="1" max="200" step="1" value="30">
+        <div class="ticks"><span>1</span><span>50</span><span>100</span><span>150</span><span>200</span></div>
+      </div>
+    </div>
+
+    <div class="card result">
+      <h2>Preço final</h2>
+      <div class="price" id="total"></div>
+      <div class="formula" id="formula"></div>
+      <div class="stats">
+        <div class="stat"><span>Custo API/mês</span><b id="custo"></b></div>
+        <div class="stat"><span>Lucro bruto/mês</span><b id="lucro"></b></div>
+        <div class="stat"><span>Margem total</span><b id="margem"></b></div>
+        <div class="stat"><span>Margem por vídeo</span><b id="margemV"></b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="params">
+    <div class="card">
+      <h2>Parâmetros · <span id="catNome"></span></h2>
+      <div class="field">Base mensal (R$)<input type="number" step="0.01" data-p="base"></div>
+      <div class="field">Taxa fixa por vídeo (R$)<input type="number" step="0.01" data-p="fixo"></div>
+      <div class="field">Preço/segundo até 15 s (R$)<input type="number" step="0.01" data-p="s1"></div>
+      <div class="field">Preço/segundo acima de 15 s (R$)<input type="number" step="0.01" data-p="s2"></div>
+      <div class="field">Custo API/segundo (US$)<input type="number" step="0.001" data-p="api"></div>
+    </div>
+    <div class="card">
+      <h2>Parâmetros gerais</h2>
+      <div class="field">Dólar efetivo (R$, IOF + spread)<input type="number" step="0.01" id="dolar" value="5.70"></div>
+      <div class="field">Margem mínima alvo (%)<input type="number" step="1" id="alvo" value="50"></div>
+      <div class="ref">
+        <b>Planos de referência</b><br>
+        Básica: 30×15 s R$ 399 · 50×15 s R$ 619<br>
+        Max (proposta 50%): 30×15 s R$ 2.320 · 60×15 s R$ 4.240<br>
+        Max atual (R$ 1.300 / R$ 2.200) dá prejuízo no personalizado.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const P = {
+  basica: {nome:'IA Básica', base:69, fixo:2, s1:0.60, s2:1.10, api:0.084},
+  max:    {nome:'IA Max',    base:400, fixo:4, s1:4.00, s2:4.50, api:0.374}
+};
+let cat = 'basica';
+const $ = id => document.getElementById(id);
+const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+function fill(r){
+  const pct = (r.value - r.min) / (r.max - r.min) * 100;
+  r.style.background = `linear-gradient(90deg,var(--acc),var(--acc2) ${pct}%,var(--line) ${pct}%)`;
+}
+
+function setCat(c){
+  cat = c;
+  $('t-basica').classList.toggle('on', c==='basica');
+  $('t-max').classList.toggle('on', c==='max');
+  document.querySelectorAll('[data-p]').forEach(i => i.value = P[cat][i.dataset.p]);
+  calc();
+}
+
+function calc(){
+  const p = P[cat], d = +$('dur').value, q = +$('qtd').value;
+  const dolar = +$('dolar').value, alvo = +$('alvo').value;
+  const precoVideo = p.fixo + p.s1*Math.min(d,15) + p.s2*Math.max(d-15,0);
+  const total = p.base + q*precoVideo;
+  const custoVideo = d*p.api*dolar;
+  const custo = q*custoVideo;
+  const margem = total ? (1 - custo/total)*100 : 0;
+  const margemV = precoVideo ? (1 - custoVideo/precoVideo)*100 : 0;
+  const pct = (el, m) => { el.textContent = m.toFixed(1) + '%'; el.className = m < alvo ? 'bad' : 'ok'; };
+  $('durV').textContent = d + ' s';
+  $('qtdV').textContent = q + (q === 1 ? ' vídeo' : ' vídeos');
+  $('catNome').textContent = p.nome;
+  $('total').innerHTML = brl(total) + ' <small>/mês</small>';
+  $('formula').textContent = `Base ${brl(p.base)} + ${q} × ${brl(precoVideo)} por vídeo`;
+  $('custo').textContent = brl(custo);
+  $('lucro').textContent = brl(total - custo);
+  pct($('margem'), margem);
+  pct($('margemV'), margemV);
+  fill($('dur')); fill($('qtd'));
+}
+
+document.querySelectorAll('[data-p]').forEach(i => i.oninput = () => { P[cat][i.dataset.p] = +i.value; calc(); });
+['dur','qtd','dolar','alvo'].forEach(id => $(id).oninput = calc);
+setCat('basica');
+</script>
+</body>
+</html>

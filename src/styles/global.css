@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0ea5e9;
+  --color-primary-50: #eff8fe;
+  --color-primary-100: #dff1fd;
+  --color-primary-200: #a6e2fb;
+  --color-primary-400: #33bef4;
+  --color-primary-600: #0a84ff;
+  --color-primary-700: #0067d6;
+  --color-primary-900: #00489b;
+  --color-bg: #f8fcff;
+  --color-ink: #0b1f2e;
+  --color-ink-2: #39566b;
+  --color-ink-3: #9db4c4;
+  --color-line: #e3edf4;
+  --color-line-strong: #cfdde8;
+  --color-ok: #0f7a4d;
+  --color-bad: #c42b2b;
+
+  --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 20px;
+  --shadow-card: 0 1px 2px rgb(14 165 233 / 0.06), 0 12px 32px -12px rgb(14 165 233 / 0.18);
+  --shadow-card-hover: 0 2px 4px rgb(14 165 233 / 0.08), 0 24px 48px -16px rgb(14 165 233 / 0.28);
+  --shadow-pop: 0 1px 2px rgb(11 31 46 / 0.06), 0 24px 56px -20px rgb(11 31 46 / 0.28);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 160ms;
+  --duration-base: 320ms;
+  --duration-slow: 560ms;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-bg font-sans text-ink;
+  }
+  ::selection {
+    background: var(--color-primary-200);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 3px;
+    border-radius: 999px;
+  }
+  button,
+  [role="switch"],
+  [role="tab"],
+  [role="slider"] {
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+@utility gradient-acao {
+  background-image: linear-gradient(90deg, #33bef4, #0ea5e9, #0a84ff);
+}
+
+/* Mesma direção do gradiente de ação, nos tons que seguram texto branco com contraste AA */
+@utility gradient-acao-texto {
+  background-image: linear-gradient(90deg, #0a84ff 0%, #0067d6 50%, #00489b 100%);
+}
+
+/* Textura granulada da referência, em SVG inline, aplicada num pseudo-elemento fixo do bloco */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+    opacity: var(--grain-opacity, 0.45);
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+/* Campos editáveis do admin */
+.editavel {
+  outline: 1.5px dashed color-mix(in srgb, var(--color-primary) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 6px;
+  cursor: text;
+  transition: outline-color var(--duration-fast) var(--ease-out-soft), background-color var(--duration-fast);
+}
+.editavel:hover {
+  background-color: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+.editavel:focus {
+  outline-style: solid;
+  outline-color: var(--color-primary-600);
+  background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+.editavel[data-invalido="true"] {
+  outline-color: var(--color-bad);
+  background-color: color-mix(in srgb, var(--color-bad) 12%, transparent);
+}
+.editavel-claro {
+  outline-color: rgb(255 255 255 / 0.8);
+}
+
+/* Slider do personalizado */
+.trilho-slider {
+  background: var(--color-line);
+}
+
+/* Zoom lento da demo do Essencial (é o próprio produto: foto com movimento de zoom) */
+@keyframes zoom-lento {
+  from { transform: scale(1); }
+  to { transform: scale(1.14); }
+}
+@keyframes passeio {
+  from { transform: scale(1.18) translate3d(-4%, 0, 0); }
+  to { transform: scale(1.18) translate3d(4%, -2%, 0); }
+}
+.zoom-lento { animation: zoom-lento 7s var(--ease-out-soft) infinite alternate; }
+.passeio { animation: passeio 9s ease-in-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom-lento,
+  .passeio { animation: none; }
+  *, *::before, *::after {
+    transition-duration: 1ms !important;
+  }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .intro [data-intro],
+  .intro [data-titulo],
+  .intro [data-area] [data-card],
+  .intro [data-revela],
+  .intro [data-aurora] {
+    visibility: hidden;
+  }
+}
+
+/* ── Efeitos de ponteiro (src/components/efeitos) ─────────────────────── */
+
+/* Cursor da casa: o do sistema some; volta o de texto onde se digita */
+[data-cursor-proprio],
+[data-cursor-proprio] * {
+  cursor: none !important;
+}
+[data-cursor-proprio] :is(input, textarea, [contenteditable="true"], .editavel) {
+  cursor: text !important;
+}
+
+/* Lanterna: luz dentro do card que segue o mouse + borda acesa nos cards do grupo */
+[data-lanterna="claro"] {
+  --lanterna-luz: rgb(255 255 255 / 0.22);
+  --lanterna-borda: rgb(255 255 255 / 0.95);
+}
+[data-lanterna="ciano"] {
+  --lanterna-luz: rgb(51 190 244 / 0.12);
+  --lanterna-borda: rgb(14 165 233 / 0.75);
+}
+.lanterna-luz,
+.lanterna-borda {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out-soft);
+}
+.lanterna-luz {
+  background: radial-gradient(var(--lanterna-raio, 340px) circle at var(--mx, 50%) var(--my, 50%), var(--lanterna-luz), transparent 70%);
+}
+.lanterna-borda {
+  padding: 1.5px;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), var(--lanterna-borda), transparent 72%);
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+[data-lanterna][data-lanterna-acesa] > .lanterna-luz,
+[data-lanterna-ativa] [data-lanterna] > .lanterna-borda,
+[data-lanterna][data-lanterna-ativa] > .lanterna-borda {
+  opacity: 1;
+}
+
+/* Onda de luz do clique/toque (data-onda); o botão precisa de relative + overflow-hidden */
+[data-onda] {
+  --onda: rgb(255 255 255 / 0.5);
+}
+[data-onda="escuro"] {
+  --onda: rgb(14 165 233 / 0.22);
+}
+.onda {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(circle closest-side, var(--onda), transparent);
+}
+
+/* Aurora clara e grade de pontos no topo da página */
+.fundo-aurora {
+  background:
+    radial-gradient(55% 60% at 50% -12%, rgb(166 226 251 / 0.42), transparent 70%),
+    radial-gradient(30% 40% at 92% 4%, rgb(51 190 244 / 0.12), transparent 70%),
+    radial-gradient(28% 36% at 6% 10%, rgb(10 132 255 / 0.06), transparent 70%);
+}
+.fundo-aurora::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(57 86 107 / 0.16) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(65% 70% at 50% 0%, #000 0%, transparent 78%);
+}
+
+/* Luz que atravessa o título uma vez na abertura (a faixa clara passa de uma ponta a outra) */
+.texto-brilho {
+  background-image: linear-gradient(100deg, var(--color-ink) 0 42%, var(--color-primary-400) 50%, var(--color-ink) 58% 100%);
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+@media (forced-colors: active) {
+  .texto-brilho {
+    background: none;
+    color: CanvasText;
+  }
+}

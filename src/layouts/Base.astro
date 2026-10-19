@@ -1,0 +1,30 @@
+---
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#F8FCFF" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <script is:inline>
+      // Esconde o que a animação de abertura vai revelar; nunca mais que 2,5 s se o JS falhar.
+      document.documentElement.classList.add("intro");
+      setTimeout(function () { document.documentElement.classList.remove("intro"); }, 2500);
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
