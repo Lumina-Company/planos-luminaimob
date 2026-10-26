@@ -173,7 +173,8 @@ export function FecharVenda({
           <span
             data-fv-aurora=""
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-[70vh] bg-[radial-gradient(50%_55%_at_50%_8%,rgb(51_190_244/0.26)_0%,rgb(10_132_255/0.10)_42%,transparent_72%)]"
+            // O raio cabe inteiro na caixa: a luz apaga antes das bordas, sem corte reto em cima nem embaixo
+            className="pointer-events-none absolute inset-x-0 top-0 h-[64vh] bg-[radial-gradient(40%_30%_at_50%_38%,rgb(51_190_244/0.22)_0%,rgb(10_132_255/0.08)_45%,transparent_72%)]"
           />
 
           <button
