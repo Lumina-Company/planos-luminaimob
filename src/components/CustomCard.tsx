@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Slider } from "radix-ui";
 import { Check, SlidersHorizontal } from "lucide-react";
+import type { CategoriaId } from "../data/planos";
 import { useApp, precoDoPersonalizado, PERSONALIZADO } from "./store";
 import { ArteCard, BotaoEscolher, ItemLista, LinhaPreco, Preco, RotuloLista } from "./PlanCard";
 import { Editable, ListaEditavel } from "./admin/Editable";
@@ -8,10 +9,10 @@ import { Editable, ListaEditavel } from "./admin/Editable";
 // Parâmetros, custo e margem: só existem no DOM com o admin ligado, e o código vem à parte.
 const AdminCalcPanel = lazy(() => import("./admin/AdminCalcPanel"));
 
-export function CustomCard({ categoria }: { categoria: "pro" | "max" }) {
+export function CustomCard({ categoria }: { categoria: CategoriaId }) {
   const { conteudo, ligados, selecao, setSelecao, personalizado, setPersonalizado, admin } = useApp();
   const cat = conteudo.categorias[categoria];
-  const p = cat.personalizado!;
+  const p = cat.personalizado;
   const preco = precoDoPersonalizado(conteudo, categoria, personalizado, ligados);
   const { duracao, videos } = personalizado[categoria];
   const lim = conteudo.limites;
@@ -37,7 +38,7 @@ export function CustomCard({ categoria }: { categoria: "pro" | "max" }) {
         }
         linhaPreco={
           preco.aplicaveis.length > 0 ? (
-            <LinhaPreco preco={preco} aceita />
+            <LinhaPreco preco={preco} />
           ) : (
             <span className="tabular">
               {videos} {videos === 1 ? "vídeo" : "vídeos"} × {duracao} s

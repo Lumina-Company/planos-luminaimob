@@ -3,6 +3,15 @@
 > Atualizado em 2026-10-16. Não há mais perguntas em aberto: o Lucas pediu que o Claude definisse tudo o que faltava. Decisões do Claude estão marcadas **(C)** aqui e nos outros docs; revisar quando quiser e corrigir no doc de origem.
 > Sobram só **tarefas de produção** (material que precisa ser feito), no fim.
 
+## Mudanças do Lucas em 2026-10-26 (valem sobre as tabelas abaixo)
+
+| # | Assunto | Decisão |
+|---|---|---|
+| M1 | Categoria **Max** | **Removida** do site (A2, A6, B10 e LAY8 abaixo ficam só como histórico). Sobram Essencial e Pro |
+| M2 | Vídeo de demo do Max | Passou para o **Pro**: `public/video/pro-demo.mp4` agora é o antigo `max-demo.mp4`. Os posts da BR Luani deixaram de ser a demo do Pro; o selo do Pro virou "Exemplo em produção" |
+| M3 | **Essencial Ilimitado** (R$ 300) | Virou **Essencial Personalizado**, com a mesma calculadora do Pro (B2, B5 e B12 ficam só como histórico). Acessórios agora valem em todos os cards |
+| M4 (C) | Valores do Essencial Personalizado | Base R$ 29, taxa fixa R$ 1,00, R$ 0,20/s até 15 s, R$ 0,40/s acima. Bate com a tabela (30 × 15 s = R$ 149; 60 × 15 s = R$ 269). **O R$ 0,40/s acima de 15 s é palpite: revisar.** Custo/s no admin = 0 (só legenda e infra, não medidos) |
+
 ## Decididas pelo Lucas (2026-10-16)
 
 | # | Assunto | Decisão |
@@ -26,7 +35,7 @@
 
 | # | Assunto | Decisão | Onde |
 |---|---|---|---|
-| A5 | Fechamento da call | Resumo fixo no rodapé com total + botão **"Copiar resumo"** (texto pronto para colar no WhatsApp depois da call) | `07` |
+| A5 | Fechamento da call | Resumo fixo no rodapé com total + botão verde **"Fechar"**: abre a tela de fechamento (a página escurece, a LuminaImob acende, resumo do que foi pedido e os próximos passos). Lucas, 2026-10-26; substitui o "Copiar resumo" | `07` |
 | A6b | Grafia | **LuminaImob** | `03` |
 | B5 | Acessórios em quais faixas | Todas, **exceto Essencial Ilimitado** (custo sem teto) | `03` |
 | B8 | Selo "Recomendado" | ~~Essencial 60 · Pro 50 · Max 30~~ **Sem selo no site** (Lucas, 2026-10-16): todos os planos fixos em azul, Personalizado branco | `07` |
@@ -85,7 +94,7 @@ Pedido do Lucas: site "bem animado, profissional, formal, suave e leve", com lan
 | MOV1 | Cursor exclusivo | Ponto preciso colado no mouse (o anel seguidor saiu a pedido do Lucas, 2026-10-16). Cresce e fica azul no clicável, vira pílula com rótulo no vídeo ("Ampliar", "Fechar"), fica branco sobre o azul/escuro, some sobre texto editável (volta o cursor de texto). **Só com mouse**; no toque e com movimento reduzido fica o cursor do sistema. Na call, o Meet/Zoom mostra o cursor da página |
 | MOV2 | Lanterna nos cards | Luz que segue o mouse dentro do card + borda acesa nos cards vizinhos (estilo Linear). Branca nos cards azuis, ciano nos brancos. Também no painel "Todos os planos incluem" e nos passos da demo. No toque, acende onde o dedo encostou |
 | MOV3 | Inclinação 3D | Arte dos cards e posts da BR Luani inclinam até 3° na direção do mouse. Pequeno de propósito: na call vira profundidade, não balanço. Desligada com o admin ligado |
-| MOV4 | Ímã nos botões | Escolher, Ver como funciona, Acessórios, Copiar resumo e Fechar do modal andam até 6 px na direção do mouse; o rótulo anda metade a mais. Desligado com o admin ligado e com o popover aberto |
+| MOV4 | Ímã nos botões | Escolher, Ver como funciona, Acessórios, Fechar da barra e Fechar do modal andam até 6 px na direção do mouse; o rótulo anda metade a mais. Desligado com o admin ligado e com o popover aberto |
 | MOV5 | Onda de luz no clique/toque | Botões principais e abas: uma onda nasce do ponto do clique |
 | MOV6 | Fundo | Aurora clara e grade de pontos no topo (fixas) + luz ciano fraca que acompanha o mouse devagar, por trás de tudo |
 | MOV7 | Transições de tela | Categoria: cards entram do lado para onde se andou. Preços ↔ demo: o conteúdo atual sai em 200 ms e o novo entra (demo: celular sobe, textos e passos em cascata). Barra de resumo agora também **desce** ao limpar |

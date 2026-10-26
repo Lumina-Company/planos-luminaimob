@@ -2,13 +2,14 @@
 // Nunca importar este arquivo de forma estática.
 
 export interface ParametrosAdmin {
-  custoPorSegundoUSD: { pro: number; max: number };
+  custoPorSegundoUSD: { essencial: number; pro: number };
   dolar: number;
   margemAlvo: number;
 }
 
 export const parametrosAdminPadrao: ParametrosAdmin = {
-  custoPorSegundoUSD: { pro: 0.084, max: 0.374 },
+  // Essencial: zoom sem IA, sem custo de geração (só legenda e infra, não medidos)
+  custoPorSegundoUSD: { essencial: 0, pro: 0.084 },
   dolar: 5.7,
   margemAlvo: 0.5,
 };

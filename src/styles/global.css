@@ -72,6 +72,11 @@
   background-image: linear-gradient(90deg, #0a84ff 0%, #0067d6 50%, #00489b 100%);
 }
 
+/* Botão "Fechar" da barra de resumo: verde em tons que seguram texto branco com contraste AA */
+@utility gradient-fechar {
+  background-image: linear-gradient(90deg, #0f7a4d 0%, #0c6b43 55%, #0a5c3a 100%);
+}
+
 /* Textura granulada da referência, em SVG inline, aplicada num pseudo-elemento fixo do bloco */
 @utility grain {
   position: relative;

@@ -10,7 +10,7 @@
 ┌────────────────────────────────────────────────────────────────────────┐
 │  Planos LuminaImob                                                     │
 │                                                                        │
-│  ( Essencial ) ( Pro ) ( Max )  [▶ Ver como funciona]  [Acessórios ▾]  │
+│  ( Essencial ) ( Pro )  [▶ Ver como funciona]  [Acessórios ▾]         │
 ├────────────────────────────────────────────────────────────────────────┤
 │  ┌────────────┐  ┌────────────┐  ┌──────────────────┐                  │
 │  │ Pro 30     │  │ Pro 50     │  │ Personalizado    │                  │
@@ -27,15 +27,15 @@
 │                                                                        │
 │  Como começamos: contrato → alinhamento → automação → no ar (20 dias)  │
 ├────────────────────────────────────────────────────────────────────────┤
-│ Pro 50 + Locução · R$ 719/mês        [Copiar resumo] [Limpar]  (fixo)  │
+│ Pro 50 + Locução · R$ 719/mês             [Fechar] [Limpar]   (fixo)   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### 1. Seletor de categoria (topo, à esquerda)
 
-- Três pílulas, como as abas da referência: **Essencial**, **Pro**, **Max**.
+- Duas pílulas, como as abas da referência: **Essencial**, **Pro** (o Max saiu em 2026-10-26).
 - A escolhida fica destacada; trocar de categoria troca os cards de baixo.
-- Abre em **Pro** (C): é o meio da tabela; dali a call desce para o Essencial ou sobe para o Max.
+- Abre em **Pro** (C); dali a call desce para o Essencial.
 
 ### 2. Botão de demonstração (ao lado das categorias)
 
@@ -50,7 +50,7 @@
   - **Locução por IA** · + R$ 100/mês
 - Com um acessório ligado, **o preço de todos os cards soma o acessório na hora**, e o card mostra o que entrou (ex.: "R$ 619 + Locução = R$ 719/mês").
 - O seletor mostra quantos estão ligados (ex.: "Acessórios (1)").
-- **Essencial Ilimitado** não soma acessório: o card mostra "Acessórios não disponíveis no Ilimitado" (C, ver `03`).
+- Todos os cards somam o acessório, inclusive os Personalizados (o Ilimitado, que não somava, saiu em 2026-10-26).
 
 ### 4. Cards de plano (as faixas da categoria)
 
@@ -58,9 +58,8 @@
 
 | Categoria | Cards |
 |---|---|
-| Essencial | Essencial 30 · R$ 149 — **Essencial 60 · R$ 269** (Recomendado) — Ilimitado · R$ 300 |
-| Pro | Pro 30 · R$ 399 — **Pro 50 · R$ 619** (Recomendado) — **Personalizado** |
-| Max | **Max 30 · R$ 1.300** (Recomendado) — Max 60 · R$ 2.200 — **Personalizado** |
+| Essencial | Essencial 30 · R$ 149 — Essencial 60 · R$ 269 — **Personalizado** |
+| Pro | Pro 30 · R$ 399 — Pro 50 · R$ 619 — **Personalizado** |
 
 Cada card, de cima para baixo:
 
@@ -72,7 +71,7 @@ Cada card, de cima para baixo:
 
 Todos os cards de faixa fixa têm a arte azul com texto branco, em escada do claro ao profundo (1º card céu, 2º oceano, 3º profundo; sempre mais fundo embaixo, onde fica o texto pequeno). O Personalizado é o único card branco. Os cards ficam soltos, só com espaço entre eles: sem fios de coluna nem tiques (2026-10-16).
 
-**Card Personalizado** (só Pro e Max, sempre o último, à direita):
+**Card Personalizado** (Essencial e Pro, sempre o último, à direita):
 
 - Dois controles deslizantes dentro do card: **duração por vídeo** (5–60 s, passo de 5 s) e **vídeos por mês** (1–200). Valores iniciais: 15 s e 30 vídeos.
 - **Preço** atualiza dentro do card enquanto mexe.
@@ -91,9 +90,9 @@ Todos os cards de faixa fixa têm a arte azul com texto branco, em escada do cla
 - "Escolher" marca o card (borda e realce na cor primária); um card selecionado por vez.
 - Aparece a **barra de resumo fixa no rodapé** (C): categoria + faixa (ou duração × quantidade no personalizado) + acessórios + **total mensal**.
 - O total acompanha as mudanças (acessório ligado, slider do personalizado).
-- **Trocar de categoria mantém a seleção** na barra até escolher outro card (C); assim dá para olhar o Max sem perder o Pro escolhido.
+- **Trocar de categoria mantém a seleção** na barra até escolher outro card (C); assim dá para olhar o Essencial sem perder o Pro escolhido.
 - Botões da barra:
-  - **"Copiar resumo"**: copia um texto pronto para colar no WhatsApp depois da call. Ex.: "LuminaImob · Plano Pro 50 (50 vídeos de 15 s por mês) + Locução por IA · R$ 719/mês · sem taxa de implementação, sem fidelidade."
+  - **"Fechar"** (verde): abre a **tela de fechamento** por cima da página. O escuro cresce do próprio botão, a LuminaImob entra com a logo acesa e, no meio, o resumo do que foi pedido: plano, volume, acessórios, total e as condições. Embaixo, os **próximos passos** (os mesmos de "Como começamos": contrato → alinhamento → automação → no ar) e a faixa do prazo. Esc ou o X voltam aos planos com a seleção intacta.
   - **"Limpar"**: desfaz a seleção.
 
 ## Modo demonstração
@@ -104,7 +103,7 @@ Explica na call **como cada categoria funciona** antes (ou depois) de falar de p
 
 1. Clicou em **"▶ Ver como funciona"**: os cards de preço **somem** e no lugar entram um **vídeo explicativo** e **textos de explicação** da categoria ativa.
 2. O botão vira **"Ver preços"**; clicar volta aos cards.
-3. **Trocar de categoria com a demo aberta mantém a demo** e mostra a da nova categoria, para comparar Essencial × Pro × Max na call.
+3. **Trocar de categoria com a demo aberta mantém a demo** e mostra a da nova categoria, para comparar Essencial × Pro na call.
 4. O topo (categorias, botão, acessórios) e a barra de resumo continuam visíveis nos dois modos.
 5. Transição suave (fade de ~200 ms) entre preços e demo, sem pular a página.
 
@@ -126,23 +125,22 @@ O vídeo é vertical porque o produto entrega Reels; no formato real, o dono ima
 
 **Vídeo de cada categoria enquanto não houver o definitivo** (C):
 
-- **Pro:** posts reais da BR Luani (vídeo de IA, nível Pro).
-- **Essencial:** vídeo real de demonstração em `public/video/essencial-demo.mp4` (capa: `essencial-demo.webp`), com a mesma tela cheia do Max. Se o link for apagado no admin, volta a imagem do imóvel + selo "exemplo em produção".
-- **Max:** vídeo real de demonstração em `public/video/max-demo.mp4` (capa: `max-demo.webp`, mesmo nome). Vídeo local novo segue o mesmo padrão: `.mp4` 720×1280 em `public/video/` + `.webp` do 1º frame.
+- **Pro:** vídeo real de demonstração em `public/video/pro-demo.mp4` (capa: `pro-demo.webp`, mesmo nome). Era o vídeo do Max; passou para o Pro em 2026-10-26 (Lucas). Selo "Exemplo em produção" (não é post da BR Luani). Se o link for apagado no admin, volta a imagem do imóvel com movimento lento + o selo. Vídeo local novo segue o mesmo padrão: `.mp4` 720×1280 em `public/video/` + `.webp` do 1º frame.
+- **Essencial:** vídeo real de demonstração em `public/video/essencial-demo.mp4` (capa: `essencial-demo.webp`). Se o link for apagado no admin, volta a imagem do imóvel + selo "exemplo em produção".
 
 **Conteúdo por categoria** (rascunho do Claude; editável pelo admin)
 
-| | Essencial | Pro | Max |
-|---|---|---|---|
-| O que é | A foto do imóvel ganha movimento de zoom e uma moldura com os dados: preço, quartos, banheiros, vagas, metragem | A IA transforma as fotos do imóvel num vídeo que passeia pelos cômodos, como se alguém andasse por dentro ou um drone passasse | O mesmo tour pelos cômodos, gerado por uma IA de qualidade superior: movimento mais natural e acabamento de vídeo filmado |
-| Para quem | Quem quer o Instagram ativo com toda a carteira, pelo menor preço | Quem quer vídeo que prende a atenção, no volume do dia a dia | Imóveis de alto padrão e lançamentos, em que o vídeo precisa impressionar |
-| Destaques | Posta todo imóvel novo · sem edição manual · moldura com a marca da imobiliária | Fotos reais do imóvel, sem inventar ambiente · 15 s, vertical · legenda por IA | Qualidade superior de movimento · fotos reais · 15 s, vertical |
+| | Essencial | Pro |
+|---|---|---|
+| O que é | A foto do imóvel ganha movimento de zoom e uma moldura com os dados: preço, quartos, banheiros, vagas, metragem | A IA transforma as fotos do imóvel num vídeo que passeia pelos cômodos, como se alguém andasse por dentro ou um drone passasse |
+| Para quem | Quem quer o Instagram ativo com toda a carteira, pelo menor preço | Quem quer vídeo que prende a atenção, no volume do dia a dia |
+| Destaques | Posta todo imóvel novo · sem edição manual · moldura com a marca da imobiliária | Fotos reais do imóvel, sem inventar ambiente · 15 s, vertical · legenda por IA |
 
-Passos "como funciona", iguais nas três (de `02-produto-luminaimob.md`):
+Passos "como funciona", iguais nas duas (de `02-produto-luminaimob.md`):
 
 1. O sistema lê os imóveis da sua base (o mesmo XML dos portais).
 2. Escolhe as melhores fotos.
-3. Gera o vídeo (zoom, IA ou IA Max).
+3. Gera o vídeo (zoom ou IA).
 4. A IA escreve a legenda no tom da sua imobiliária.
 5. Você aprova, edita ou rejeita, ou deixa no automático.
 6. Publica no Instagram, TikTok e YouTube Shorts.

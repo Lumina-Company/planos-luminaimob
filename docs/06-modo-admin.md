@@ -26,7 +26,7 @@ O admin **não é uma tela separada**. É uma camada (um "filtro") que liga e de
 
 Regra geral: **todo texto e número visível é editável no lugar**, com o mesmo visual. Nada de formulário à parte.
 
-**Planos (Essencial, Pro, Max)**
+**Planos (Essencial, Pro)**
 - Nome do plano e descrição do nível de vídeo
 - Faixas existentes: quantidade de vídeos, duração, preço (sem criar nem remover faixa)
 - ~~Selo de destaque ("recomendado")~~ removido do site em 2026-10-16
@@ -38,17 +38,17 @@ Regra geral: **todo texto e número visível é editável no lugar**, com o mesm
 **Conteúdo do site**
 - Títulos, textos, "como funciona", provas (BR Luani), dados de mercado, condições comerciais, chamadas
 
-**Calculadora do personalizado (Pro e Max)**
+**Calculadora do personalizado (Essencial e Pro)**
 
 Em modo apresentação mostra só os controles de duração e quantidade e o preço final. No admin aparecem, editáveis:
 
-| Parâmetro | Pro hoje | Max hoje |
+| Parâmetro | Essencial hoje | Pro hoje |
 |---|---|---|
-| Base mensal | R$ 69 | R$ 400 |
-| Taxa fixa por vídeo | R$ 2,00 | R$ 0,00 |
-| Preço/s até 15 s | R$ 0,60 | R$ 2,00 |
-| Preço/s acima de 15 s | R$ 1,10 | R$ 3,50 |
-| Custo API/s (US$) | 0,084 | 0,374 |
+| Base mensal | R$ 29 | R$ 69 |
+| Taxa fixa por vídeo | R$ 1,00 | R$ 2,00 |
+| Preço/s até 15 s | R$ 0,20 | R$ 0,60 |
+| Preço/s acima de 15 s | R$ 0,40 | R$ 1,10 |
+| Custo API/s (US$) | 0 | 0,084 |
 
 Gerais: dólar efetivo (R$ 5,70), margem mínima alvo (50%), limites dos controles (duração de 5 a 60 s em passos de 5 s; de 1 a 200 vídeos).
 

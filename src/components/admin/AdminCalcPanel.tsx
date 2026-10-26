@@ -1,5 +1,6 @@
 // Só carrega com o admin ligado (React.lazy). Mostra parâmetros, custo e margem do personalizado.
 import { useEffect, useState } from "react";
+import type { CategoriaId } from "../../data/planos";
 import { useApp, precoDoPersonalizado } from "../store";
 import { Editable } from "./Editable";
 import { formatarBRL } from "../../lib/preco";
@@ -8,7 +9,7 @@ import type * as Calc from "../../data/calculadora-admin";
 const pct = (v: number) => `${(v * 100).toFixed(1).replace(".", ",")}%`;
 const num = (casas: number) => (v: number) => v.toLocaleString("pt-BR", { minimumFractionDigits: casas, maximumFractionDigits: 3 });
 
-export default function AdminCalcPanel({ categoria }: { categoria: "pro" | "max" }) {
+export default function AdminCalcPanel({ categoria }: { categoria: CategoriaId }) {
   const { conteudo, personalizado, parametrosAdmin } = useApp();
   const [calc, setCalc] = useState<typeof Calc | null>(null);
   useEffect(() => {

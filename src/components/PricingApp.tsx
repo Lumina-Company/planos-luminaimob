@@ -114,7 +114,7 @@ function Pagina() {
     { scope: raiz },
   );
 
-  // Troca de categoria: os cards novos entram do lado para onde se andou (Pro → Max vem da direita).
+  // Troca de categoria: os cards novos entram do lado para onde se andou (Essencial → Pro vem da direita).
   // Troca preços ↔ demo: o conteúdo novo sobe; a demo coreografa a própria entrada (DemoPanel).
   useGSAP(
     () => {
@@ -294,11 +294,9 @@ function Pagina() {
                   <PlanCard categoria={categoria} faixa={f} indice={i} />
                 </div>
               ))}
-              {cat.personalizado && categoria !== "essencial" && (
-                <div data-card="">
-                  <CustomCard categoria={categoria} />
-                </div>
-              )}
+              <div data-card="">
+                <CustomCard categoria={categoria} />
+              </div>
             </div>
           )}
         </div>
@@ -373,7 +371,7 @@ function Inclusos() {
             <Editable caminho="inclusos.titulo" rotulo="título dos inclusos" />
           </h2>
           <p className="mt-3 max-w-[34ch] text-[15px] leading-relaxed text-ink-2">
-            Essencial, Pro e Max. Muda o nível do vídeo; o resto vem em todos.
+            Essencial e Pro. Muda o nível do vídeo; o resto vem em todos.
           </p>
         </div>
         <ListaEditavel

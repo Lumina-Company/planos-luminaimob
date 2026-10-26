@@ -26,7 +26,6 @@ Imóvel cadastrado vira post em até **60 minutos**, sem ninguém editar nada.
 |---|---|---|
 | **Zoom** | A foto com movimento de zoom e uma moldura padrão com os dados do imóvel. Sem IA na edição | Plano Essencial |
 | **Vídeo completo por IA** | Até 15 s; passeia pelos cômodos como se alguém andasse ou um drone passasse, gerado das fotos reais | Plano Pro |
-| **Vídeo IA Max** | Geração por IA de qualidade superior | Plano Max |
 | **Motion Graphics** | Vídeo inteiro animado; as informações do imóvel entram animadas, em vez de moldura | Acessório |
 | **Locução por IA** | Narração no vídeo | Acessório |
 

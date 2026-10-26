@@ -7,7 +7,6 @@ import { gsap, useGSAP, Flip, reduzMovimento } from "../lib/gsap";
 export const ORBE: Record<CategoriaId, string> = {
   essencial: "radial-gradient(circle at 32% 30%, #ffffff 0%, #A6E2FB 38%, #33BEF4 100%)",
   pro: "radial-gradient(circle at 32% 30%, #DFF1FD 0%, #33BEF4 34%, #0EA5E9 70%, #0A84FF 100%)",
-  max: "radial-gradient(circle at 32% 30%, #A6E2FB 0%, #0A84FF 42%, #00489B 100%)",
 };
 
 export function Orbe({ categoria, className = "size-3" }: { categoria: CategoriaId; className?: string }) {

@@ -7,7 +7,7 @@ type Fonte = { tipo: "arquivo"; src: string; capa?: string } | { tipo: "iframe";
 
 /**
  * Aceita .mp4 público, YouTube ou Vimeo (docs/06, ADM4).
- * Arquivo local em public/ (ex.: /video/max-demo.mp4) usa como capa o .webp de mesmo nome.
+ * Arquivo local em public/ (ex.: /video/pro-demo.mp4) usa como capa o .webp de mesmo nome.
  */
 export function resolverVideo(url: string): Fonte | null {
   const u = url.trim();

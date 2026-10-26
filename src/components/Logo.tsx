@@ -6,7 +6,17 @@ import { gsap, useGSAP, reduzMovimento } from "../lib/gsap";
  * Os traços têm a classe "traco" para o DrawSVG; o brilho "luz" acende depois.
  * Com o mouse por cima, a lâmpada reacende: o circuito se redesenha do centro e o brilho pulsa.
  */
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({
+  className = "",
+  claro = false,
+  grande = false,
+}: {
+  className?: string;
+  /** Sobre fundo escuro: o nome vira branco */
+  claro?: boolean;
+  /** Tamanho de abertura/fechamento da call (quase o dobro) */
+  grande?: boolean;
+}) {
   const raiz = useRef<HTMLSpanElement>(null);
   const { contextSafe } = useGSAP({ scope: raiz });
 
@@ -20,8 +30,13 @@ export function Logo({ className = "" }: { className?: string }) {
   });
 
   return (
-    <span ref={raiz} className={`inline-flex items-center gap-2.5 ${className}`} data-logo="" onPointerEnter={reacender}>
-      <span className="relative grid size-9 place-items-center">
+    <span
+      ref={raiz}
+      className={`inline-flex items-center ${grande ? "gap-4" : "gap-2.5"} ${className}`}
+      data-logo=""
+      onPointerEnter={reacender}
+    >
+      <span className={`relative grid place-items-center ${grande ? "size-16" : "size-9"}`}>
         <span
           data-luz=""
           aria-hidden="true"
@@ -29,7 +44,7 @@ export function Logo({ className = "" }: { className?: string }) {
         />
         <svg
           viewBox="0 0 32 32"
-          className="relative size-8"
+          className={`relative ${grande ? "size-14" : "size-8"}`}
           fill="none"
           stroke="#0EA5E9"
           strokeWidth={1.6}
@@ -46,8 +61,12 @@ export function Logo({ className = "" }: { className?: string }) {
           <circle className="traco" stroke="#0A84FF" cx="19.2" cy="9.4" r="1.2" />
         </svg>
       </span>
-      <span className="font-display text-[19px] font-semibold tracking-[-0.02em] text-ink">
-        Lumina<span className="text-primary-700">Imob</span>
+      <span
+        className={`font-display font-semibold tracking-[-0.02em] ${grande ? "text-[38px]" : "text-[19px]"} ${
+          claro ? "text-white" : "text-ink"
+        }`}
+      >
+        Lumina<span className={claro ? "text-primary-400" : "text-primary-700"}>Imob</span>
       </span>
     </span>
   );

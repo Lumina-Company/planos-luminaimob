@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from "react";
-import { Check, CornerRightDown, Film, Timer, Infinity as InfinityIcon, Info, Wand2 } from "lucide-react";
+import { Check, CornerRightDown, Film, Timer, Wand2 } from "lucide-react";
 import type { CategoriaId, Faixa } from "../data/planos";
 import { useApp, precoDaFaixa, type PrecoCard } from "./store";
 import { Editable, ListaEditavel } from "./admin/Editable";
@@ -143,16 +143,8 @@ export function RotuloLista({ children }: { children: ReactNode }) {
 }
 
 /** "R$ 619 + Locução" quando há acessório; senão, preço por vídeo. */
-export function LinhaPreco({ preco, aceita }: { preco: PrecoCard; aceita: boolean }) {
-  const { conteudo, ligados } = useApp();
-  if (!aceita && ligados.length > 0) {
-    return (
-      <span className="inline-flex items-center gap-1.5">
-        <Info className="size-3.5" strokeWidth={2} />
-        <Editable caminho="site.ilimitadoSemAcessorios" rotulo="aviso do Ilimitado" />
-      </span>
-    );
-  }
+export function LinhaPreco({ preco }: { preco: PrecoCard }) {
+  const { conteudo } = useApp();
   if (preco.aplicaveis.length > 0) {
     const nomes = preco.aplicaveis.map((id) => conteudo.acessorios[id].nome.replace(/ por IA$/, "")).join(" + ");
     return (
@@ -161,8 +153,7 @@ export function LinhaPreco({ preco, aceita }: { preco: PrecoCard; aceita: boolea
       </span>
     );
   }
-  if (preco.porVideo) return <span className="tabular">{formatarBRL(preco.porVideo)} por vídeo</span>;
-  return null;
+  return <span className="tabular">{formatarBRL(preco.porVideo)} por vídeo</span>;
 }
 
 export function Preco({ valor, claro, rapido }: { valor: number; claro: boolean; rapido?: boolean }) {
@@ -197,7 +188,7 @@ export function PlanCard({ categoria, faixa, indice }: { categoria: CategoriaId;
             <Editable caminho={`${base}.nome`} claro rotulo="nome da faixa" />
           </h3>
         }
-        linhaPreco={<LinhaPreco preco={preco} aceita={faixa.aceitaAcessorios} />}
+        linhaPreco={<LinhaPreco preco={preco} />}
         preco={
           admin ? (
             <>
@@ -225,14 +216,9 @@ export function PlanCard({ categoria, faixa, indice }: { categoria: CategoriaId;
       />
 
       <RotuloLista>Neste plano</RotuloLista>
-      {faixa.videos === null ? (
-        <ItemLista icone={InfinityIcon}>Vídeos ilimitados: posta todo imóvel novo da carteira</ItemLista>
-      ) : (
-        <ItemLista icone={Film}>
-          <Editable caminho={`${base}.videos`} tipo="inteiro" rotulo="vídeos por mês" className="tabular font-medium" /> vídeos por
-          mês
-        </ItemLista>
-      )}
+      <ItemLista icone={Film}>
+        <Editable caminho={`${base}.videos`} tipo="inteiro" rotulo="vídeos por mês" className="tabular font-medium" /> vídeos por mês
+      </ItemLista>
       <ItemLista icone={Timer}>
         <Editable caminho={`${base}.duracao`} tipo="duracao" rotulo="duração" className="tabular" /> s por vídeo, vertical
       </ItemLista>

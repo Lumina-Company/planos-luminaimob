@@ -53,8 +53,7 @@ test("ligar Locução soma R$ 100 em todos os cards elegíveis", async ({ page }
   await page.getByRole("tab", { name: "Essencial" }).click();
   await page.waitForTimeout(500);
   await expect(card(page, "Essencial 30")).toContainText("249");
-  await expect(card(page, "Ilimitado")).toContainText("300");
-  await expect(card(page, "Ilimitado")).toContainText("Acessórios não disponíveis no Ilimitado");
+  await expect(card(page, "Essencial Personalizado")).toContainText("249");
 });
 
 test("admin desligado não tem custo/margem no HTML; ligado tem", async ({ page }) => {
@@ -114,8 +113,7 @@ test("valor inválido no admin volta ao anterior", async ({ page }) => {
   await expect(card(page, "Pro 30").getByRole("textbox", { name: "Editar preço da faixa" })).toHaveText("399");
 });
 
-test("Copiar resumo coloca plano, acessórios e total na área de transferência", async ({ page, context }) => {
-  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+test("Fechar abre a tela de fechamento com plano, acessórios, total e próximos passos", async ({ page }) => {
   await abrir(page);
   await page.getByRole("button", { name: /Acessórios/ }).click();
   await page.getByRole("switch", { name: /Locução/ }).click();
@@ -123,22 +121,31 @@ test("Copiar resumo coloca plano, acessórios e total na área de transferência
   await card(page, "Pro 50").getByRole("button", { name: /Escolher/ }).click();
   const barra = page.getByRole("region", { name: "Resumo do plano escolhido" });
   await expect(barra).toContainText("719");
-  await barra.getByRole("button", { name: /Copiar resumo/ }).click();
-  await expect(barra).toContainText("Copiado");
-  const texto = await page.evaluate(() => navigator.clipboard.readText());
-  expect(texto).toBe(
-    "LuminaImob · Plano Pro 50 (50 vídeos de 15 s por mês) + Locução por IA · R$ 719/mês · sem taxa de implementação, sem fidelidade.",
-  );
+  await barra.getByRole("button", { name: "Fechar" }).click();
+
+  const tela = page.getByRole("dialog", { name: "Plano escolhido e próximos passos" });
+  await expect(tela.getByRole("heading", { level: 2, name: "Pro 50" })).toBeVisible();
+  await expect(tela).toContainText("50 vídeos de 15 s por mês");
+  await expect(tela).toContainText("Locução por IA");
+  await expect(tela).toContainText("719"); // o total conta de zero até o valor da barra
+  await expect(tela).toContainText("Próximos passos");
+  await expect(tela).toContainText("Contrato assinado");
+  await expect(tela).toContainText("Imóveis no ar sozinhos");
+  await expect(tela).toContainText("em até 20 dias");
+
+  // Esc volta aos planos sem desligar a seleção nem ligar o admin
+  await page.keyboard.press("Escape");
+  await expect(tela).toBeHidden();
+  await expect(barra).toContainText("Pro 50");
+  await expect(page.locator("html")).not.toHaveAttribute("data-admin", "");
 });
 
 test("trocar de categoria mantém a seleção; demo troca os cards", async ({ page }) => {
   await abrir(page);
   await card(page, "Pro 50").getByRole("button", { name: /Escolher/ }).click();
-  await page.getByRole("tab", { name: "Max" }).click();
+  await page.getByRole("tab", { name: "Essencial" }).click();
   await expect(page.getByRole("region", { name: "Resumo do plano escolhido" })).toContainText("Pro 50");
   await page.getByRole("button", { name: "Ver como funciona" }).click();
-  await expect(page.getByRole("heading", { level: 2, name: "Max" })).toBeVisible();
-  await page.getByRole("tab", { name: "Essencial" }).click();
   await expect(page.getByRole("heading", { level: 2, name: "Essencial" })).toBeVisible();
   await page.getByRole("button", { name: "Ver preços" }).click();
   await expect(card(page, "Essencial 60")).toBeVisible();
@@ -146,10 +153,9 @@ test("trocar de categoria mantém a seleção; demo troca os cards", async ({ pa
 
 test("vídeo da demo abre em tela cheia e volta ao celular (clique, X e Esc)", async ({ page }) => {
   await abrir(page);
-  await page.getByRole("tab", { name: "Max" }).click();
   await page.getByRole("button", { name: "Ver como funciona" }).click();
   const ampliar = page.getByRole("button", { name: /Ver em tela cheia/ });
-  const telaCheia = page.getByRole("dialog", { name: /Vídeo de exemplo do Max/ });
+  const telaCheia = page.getByRole("dialog", { name: /Vídeo de exemplo do Pro/ });
 
   await ampliar.click();
   await expect(telaCheia).toBeVisible();
@@ -182,14 +188,25 @@ test("vídeo do Essencial também abre em tela cheia", async ({ page }) => {
   await expect(telaCheia).toBeHidden();
 });
 
-test("personalizado do Max: 30 × 30 s = R$ 2.875", async ({ page }) => {
+test("personalizado do Pro: 30 × 30 s = R$ 894", async ({ page }) => {
   await abrir(page);
-  await page.getByRole("tab", { name: "Max" }).click();
-  const slider = card(page, "Max Personalizado").getByRole("slider", { name: "Duração por vídeo" });
+  const slider = card(page, "Pro Personalizado").getByRole("slider", { name: "Duração por vídeo" });
   await slider.focus();
   for (let i = 0; i < 3; i++) await page.keyboard.press("ArrowRight");
   await page.waitForTimeout(400);
-  await expect(card(page, "Max Personalizado")).toContainText("2.875");
+  await expect(card(page, "Pro Personalizado")).toContainText("894");
+});
+
+test("personalizado do Essencial: 30 × 15 s = R$ 149; 30 × 30 s = R$ 329", async ({ page }) => {
+  await abrir(page);
+  await page.getByRole("tab", { name: "Essencial" }).click();
+  const personalizado = card(page, "Essencial Personalizado");
+  await expect(personalizado).toContainText("149");
+  const slider = personalizado.getByRole("slider", { name: "Duração por vídeo" });
+  await slider.focus();
+  for (let i = 0; i < 3; i++) await page.keyboard.press("ArrowRight");
+  await page.waitForTimeout(400);
+  await expect(personalizado).toContainText("329");
 });
 
 test("localStorage bloqueado: abre com o padrão, sem erro", async ({ page }) => {

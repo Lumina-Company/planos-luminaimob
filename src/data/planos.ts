@@ -2,17 +2,16 @@
 // ÚNICA fonte de preço no código. Se o preço mudar, mude primeiro em docs/03.
 // Nada de custo, margem ou fornecedor aqui: isso fica em calculadora-admin.ts.
 
-export type CategoriaId = "essencial" | "pro" | "max";
+export type CategoriaId = "essencial" | "pro";
 export type AcessorioId = "motion" | "locucao";
 
-export const CATEGORIAS: CategoriaId[] = ["essencial", "pro", "max"];
+export const CATEGORIAS: CategoriaId[] = ["essencial", "pro"];
 export const ACESSORIOS: AcessorioId[] = ["motion", "locucao"];
 
 export interface Faixa {
   id: string;
   nome: string;
-  /** null = ilimitado */
-  videos: number | null;
+  videos: number;
   duracao: number;
   preco: number;
   aceitaAcessorios: boolean;
@@ -38,7 +37,7 @@ export interface Categoria {
   descricao: string;
   vantagens: string[];
   faixas: Faixa[];
-  personalizado: Personalizado | null;
+  personalizado: Personalizado;
 }
 
 export interface Acessorio {
@@ -66,7 +65,6 @@ export interface Conteudo {
     acessoriosTitulo: string;
     escolher: string;
     escolhido: string;
-    ilimitadoSemAcessorios: string;
   };
   categorias: Record<CategoriaId, Categoria>;
   acessorios: Record<AcessorioId, Acessorio>;
@@ -105,7 +103,6 @@ export const conteudoPadrao: Conteudo = {
     acessoriosTitulo: "Acessórios",
     escolher: "Escolher",
     escolhido: "Escolhido",
-    ilimitadoSemAcessorios: "Acessórios não disponíveis no Ilimitado",
   },
 
   categorias: {
@@ -122,9 +119,12 @@ export const conteudoPadrao: Conteudo = {
       faixas: [
         { id: "essencial-30", nome: "Essencial 30", videos: 30, duracao: 15, preco: 149, aceitaAcessorios: true },
         { id: "essencial-60", nome: "Essencial 60", videos: 60, duracao: 15, preco: 269, aceitaAcessorios: true },
-        { id: "essencial-ilimitado", nome: "Ilimitado", videos: null, duracao: 15, preco: 300, aceitaAcessorios: false },
       ],
-      personalizado: null,
+      personalizado: {
+        nome: "Personalizado",
+        descricao: "Duração e quantidade do seu jeito",
+        parametros: { base: 29, taxaFixa: 1, precoAte15: 0.2, precoAcima15: 0.4 },
+      },
     },
     pro: {
       id: "pro",
@@ -143,22 +143,6 @@ export const conteudoPadrao: Conteudo = {
         nome: "Personalizado",
         descricao: "Duração e quantidade do seu jeito",
         parametros: { base: 69, taxaFixa: 2, precoAte15: 0.6, precoAcima15: 1.1 },
-      },
-    },
-    max: {
-      id: "max",
-      nome: "Max",
-      nivel: "IA de qualidade superior",
-      descricao: "O mesmo tour pelos cômodos, gerado por uma IA de qualidade superior.",
-      vantagens: ["Movimento mais natural, acabamento de vídeo filmado"],
-      faixas: [
-        { id: "max-30", nome: "Max 30", videos: 30, duracao: 15, preco: 1300, aceitaAcessorios: true },
-        { id: "max-60", nome: "Max 60", videos: 60, duracao: 15, preco: 2200, aceitaAcessorios: true },
-      ],
-      personalizado: {
-        nome: "Personalizado",
-        descricao: "Duração e quantidade do seu jeito",
-        parametros: { base: 400, taxaFixa: 0, precoAte15: 2, precoAcima15: 3.5 },
       },
     },
   },
@@ -248,7 +232,7 @@ export const conteudoPadrao: Conteudo = {
     passos: [
       "O sistema lê os imóveis da sua base (o mesmo XML dos portais).",
       "Escolhe as melhores fotos.",
-      "Gera o vídeo (zoom, IA ou IA Max).",
+      "Gera o vídeo (zoom ou IA).",
       "A IA escreve a legenda no tom da sua imobiliária.",
       "Você aprova, edita ou rejeita, ou deixa no automático.",
       "Publica no Instagram, TikTok e YouTube Shorts.",
@@ -270,15 +254,6 @@ export const conteudoPadrao: Conteudo = {
         paraQuem: "Quem quer vídeo que prende a atenção, no volume do dia a dia.",
         destaques: ["Fotos reais do imóvel, sem inventar ambiente", "15 s, vertical", "Legenda por IA"],
         video: "/video/pro-demo.mp4",
-        selo: "Posts reais · BR Luani",
-      },
-      max: {
-        titulo: "Max",
-        oQueE:
-          "O mesmo tour pelos cômodos, gerado por uma IA de qualidade superior: movimento mais natural e acabamento de vídeo filmado.",
-        paraQuem: "Imóveis de alto padrão e lançamentos, em que o vídeo precisa impressionar.",
-        destaques: ["Qualidade superior de movimento", "Fotos reais", "15 s, vertical"],
-        video: "/video/max-demo.mp4",
         selo: "Exemplo em produção",
       },
     },

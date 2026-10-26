@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { Check, ChevronRight } from "lucide-react";
 import type { CategoriaId } from "../data/planos";
 import { useApp } from "./store";
@@ -9,48 +9,9 @@ import { VideoTelaCheia } from "./VideoTelaCheia";
 import { Lanterna } from "./efeitos/Lanterna";
 import { gsap, useGSAP, reduzMovimento } from "../lib/gsap";
 
-const POSTS = ["/img/br-luani/post-1.webp", "/img/br-luani/post-2.webp", "/img/br-luani/post-3.webp"];
-
-/** Posts reais da BR Luani em sequência, como um Reels (LAY7, demo do Pro). */
-function PostsBRLuani({ selo }: { selo: string }) {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (reduzMovimento()) return;
-    const t = setInterval(() => setI((x) => (x + 1) % POSTS.length), 2800);
-    return () => clearInterval(t);
-  }, []);
-  return (
-    <div className="relative size-full bg-white">
-      {POSTS.map((src, j) => (
-        <img
-          key={src}
-          src={src}
-          alt={j === i ? "Post real publicado pela automação no Instagram da BR Luani Imobiliária" : ""}
-          aria-hidden={j !== i}
-          className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-700 ${j === i ? "opacity-100" : "opacity-0"}`}
-          loading="lazy"
-          decoding="async"
-        />
-      ))}
-      <div className="absolute inset-x-3 top-3 flex gap-1" aria-hidden="true">
-        {POSTS.map((src, j) => (
-          <span key={src} className="h-[3px] flex-1 overflow-hidden rounded-full bg-ink/15">
-            <span className={`block h-full rounded-full bg-ink/70 ${j <= i ? "w-full" : "w-0"}`} />
-          </span>
-        ))}
-      </div>
-      <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-ink/85 px-3 py-1.5 text-[12px] font-semibold text-white backdrop-blur">
-        <span className="size-1.5 rounded-full bg-primary-400" />
-        {selo}
-      </span>
-    </div>
-  );
-}
-
-const RESERVA: Record<CategoriaId, { src: string; efeito: "zoom-lento" | "passeio" } | null> = {
+const RESERVA: Record<CategoriaId, { src: string; efeito: "zoom-lento" | "passeio" }> = {
   essencial: { src: "/img/exemplos/imovel-sala.webp", efeito: "zoom-lento" },
-  pro: null,
-  max: { src: "/img/exemplos/imovel-piscina.webp", efeito: "passeio" },
+  pro: { src: "/img/exemplos/imovel-piscina.webp", efeito: "passeio" },
 };
 
 /**
@@ -152,13 +113,7 @@ export function DemoPanel() {
               caminho={`${base}.video`}
               rotulo={`Vídeo de exemplo do ${cat.nome}`}
               aoAmpliar={setAmpliado}
-              reserva={
-                reserva ? (
-                  <ReservaImagem src={reserva.src} alt={`Foto real de imóvel, base do vídeo ${cat.nome}`} selo={d.selo} efeito={reserva.efeito} />
-                ) : (
-                  <PostsBRLuani selo={d.selo} />
-                )
-              }
+              reserva={<ReservaImagem src={reserva.src} alt={`Foto real de imóvel, base do vídeo ${cat.nome}`} selo={d.selo} efeito={reserva.efeito} />}
             />
           </div>
         </div>

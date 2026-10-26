@@ -17,7 +17,7 @@ export interface Selecao {
   faixaId: string;
 }
 
-export type EstadoPersonalizado = Record<"pro" | "max", { duracao: number; videos: number }>;
+export type EstadoPersonalizado = Record<CategoriaId, { duracao: number; videos: number }>;
 
 interface Ctx {
   conteudo: Conteudo;
@@ -29,7 +29,7 @@ interface Ctx {
   selecao: Selecao | null;
   setSelecao: (s: Selecao | null) => void;
   personalizado: EstadoPersonalizado;
-  setPersonalizado: (c: "pro" | "max", v: { duracao?: number; videos?: number }) => void;
+  setPersonalizado: (c: CategoriaId, v: { duracao?: number; videos?: number }) => void;
   demo: boolean;
   setDemo: (d: boolean) => void;
   // admin
@@ -94,8 +94,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const conteudo = useMemo(() => aplicar(conteudoPadrao, overrides), [overrides]);
   const [personalizado, setPersonalizadoState] = useState<EstadoPersonalizado>(() => ({
+    essencial: { duracao: conteudoPadrao.limites.duracaoInicial, videos: conteudoPadrao.limites.videosIniciais },
     pro: { duracao: conteudoPadrao.limites.duracaoInicial, videos: conteudoPadrao.limites.videosIniciais },
-    max: { duracao: conteudoPadrao.limites.duracaoInicial, videos: conteudoPadrao.limites.videosIniciais },
   }));
 
   // Edições salvas entram depois da hidratação (o HTML estático sai sempre com o padrão).
@@ -125,12 +125,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const prender = (v: number, a: number, b: number) => Math.min(Math.max(v, a), b);
     setPersonalizadoState((p) => ({
+      essencial: {
+        duracao: prender(p.essencial.duracao, duracaoMin, duracaoMax),
+        videos: prender(p.essencial.videos, videosMin, videosMax),
+      },
       pro: { duracao: prender(p.pro.duracao, duracaoMin, duracaoMax), videos: prender(p.pro.videos, videosMin, videosMax) },
-      max: { duracao: prender(p.max.duracao, duracaoMin, duracaoMax), videos: prender(p.max.videos, videosMin, videosMax) },
     }));
   }, [duracaoMin, duracaoMax, videosMin, videosMax]);
 
-  const setPersonalizado = useCallback((c: "pro" | "max", v: { duracao?: number; videos?: number }) => {
+  const setPersonalizado = useCallback((c: CategoriaId, v: { duracao?: number; videos?: number }) => {
     setPersonalizadoState((p) => ({ ...p, [c]: { ...p[c], ...v } }));
   }, []);
 
@@ -188,9 +191,9 @@ export interface PrecoCard {
   base: number;
   total: number;
   aplicaveis: AcessorioId[];
-  videos: number | null;
+  videos: number;
   duracao: number;
-  porVideo: number | null;
+  porVideo: number;
 }
 
 export function precoDaFaixa(conteudo: Conteudo, faixa: Faixa, ligados: AcessorioId[]): PrecoCard {
@@ -202,17 +205,17 @@ export function precoDaFaixa(conteudo: Conteudo, faixa: Faixa, ligados: Acessori
     aplicaveis,
     videos: faixa.videos,
     duracao: faixa.duracao,
-    porVideo: faixa.videos ? total / faixa.videos : null,
+    porVideo: total / faixa.videos,
   };
 }
 
 export function precoDoPersonalizado(
   conteudo: Conteudo,
-  categoria: "pro" | "max",
+  categoria: CategoriaId,
   estado: EstadoPersonalizado,
   ligados: AcessorioId[],
 ): PrecoCard & { precoPorVideoBase: number } {
-  const p = conteudo.categorias[categoria].personalizado!.parametros;
+  const p = conteudo.categorias[categoria].personalizado.parametros;
   const { duracao, videos } = estado[categoria];
   const base = precoPersonalizado(p, videos, duracao);
   const total = base + somaAcessorios(ligados, conteudo.acessorios);
@@ -234,10 +237,7 @@ export function precoDaSelecao(
   ligados: AcessorioId[],
 ): PrecoCard | null {
   const cat = conteudo.categorias[selecao.categoria];
-  if (selecao.faixaId === PERSONALIZADO) {
-    if (!cat.personalizado || selecao.categoria === "essencial") return null;
-    return precoDoPersonalizado(conteudo, selecao.categoria, estado, ligados);
-  }
+  if (selecao.faixaId === PERSONALIZADO) return precoDoPersonalizado(conteudo, selecao.categoria, estado, ligados);
   const faixa = cat.faixas.find((f) => f.id === selecao.faixaId);
   return faixa ? precoDaFaixa(conteudo, faixa, ligados) : null;
 }

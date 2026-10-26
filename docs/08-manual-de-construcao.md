@@ -71,7 +71,7 @@ src/
     preco.ts           ← fórmula do personalizado e soma de acessórios. Funções puras
     preco.test.ts      ← confere os números de docs/03
     edicoes.ts         ← overrides do admin: localStorage com try/catch, desfazer/refazer, exportar/importar JSON
-    resumo.ts          ← monta o texto do "Copiar resumo"
+    resumo.ts          ← nome e volume do plano escolhido (barra de resumo e tela de fechamento)
   components/
     PricingApp.tsx     ← a ilha (client:load). Estado da página inteira
     CategoryTabs.tsx  AccessoriesMenu.tsx  PlanCard.tsx  CustomCard.tsx
@@ -178,7 +178,7 @@ Objetivo: tudo responde na hora e flui, sem nunca atrasar o sócio na call.
 ### Princípios
 
 1. **Pensar em compartilhamento de tela.** Meet/Zoom transmitem a 15–30 quadros por segundo. Movimentos de 250–550 ms leem bem; abaixo de 150 ms some, acima de 700 ms parece lento. Nada de micro-parallax nem tremidinhas que viram ruído no vídeo.
-2. **Animação nunca bloqueia clique.** Toda animação é interrompível (`overwrite: 'auto'`); clicar Pro → Max → Essencial rápido não pode enfileirar transições.
+2. **Animação nunca bloqueia clique.** Toda animação é interrompível (`overwrite: 'auto'`); clicar Pro → Essencial → Pro rápido não pode enfileirar transições.
 3. **Só `transform` e `opacity`.** Layout muda via Flip, não animando `width`/`height`/`top`.
 4. **Uma curva da casa.** `--ease-out-soft` (`cubic-bezier(.22,1,.36,1)`) para entradas; `power2.inOut` para trocas; `back.out(1.4)` só na barra de resumo.
 5. **Movimento reduzido.** Com `prefers-reduced-motion: reduce`, tudo vira fade curto (≤ 120 ms) via `gsap.matchMedia()`. Preço continua atualizando, só sem contagem.
@@ -194,11 +194,11 @@ Objetivo: tudo responde na hora e flui, sem nunca atrasar o sócio na call.
 | Liga acessório | Linha "+ Locução" entra no card com altura via Flip; contador "Acessórios (1)" faz um pulso de escala 1 → 1,08 → 1 | 320 ms |
 | Hover no card | Sobe 4 px, sombra azulada cresce | 160 ms |
 | "Escolher" | Borda em gradiente acende no card; os outros perdem 8% de opacidade. Barra de resumo sobe do rodapé | 320 ms · barra 450 ms `back.out(1.4)` |
-| "Copiar resumo" | Botão troca o ícone para ✓ "Copiado" e volta depois de 2 s | 160 ms |
+| "Fechar" | O escuro cresce do botão e toma a tela; a logo da Lumina acende (DrawSVG + halo), o resumo entra, o total conta de zero e os próximos passos vêm um a um. Esc/X refazem o caminho de volta | abertura ~2,6 s · volta 0,8 s |
 | "▶ Ver como funciona" | Cards recolhem e o vídeo 9:16 cresce do card central (Flip); textos da demo entram com stagger | 550 ms |
 | "Ver preços" | Caminho inverso | 450 ms |
 | Preços ↔ demo (retoque) | O conteúdo atual sai (fade + 10 px para cima) e só então o novo entra; demo: celular sobe e assenta, textos e passos em cascata, setas por último. Clicar de novo no meio corta a saída | saída 200 ms · entrada ≤ 900 ms |
-| Troca de categoria (retoque) | Cards entram do lado para onde se andou (Pro → Max vem da direita, stagger na mesma direção); a linha da categoria acompanha | 450 ms |
+| Troca de categoria (retoque) | Cards entram do lado para onde se andou (Essencial → Pro vem da direita, stagger na mesma direção); a linha da categoria acompanha | 450 ms |
 | "Escolher" (retoque) | Faixa de luz atravessa a arte uma vez, o card respira (1,012) e o ✓ se desenha | 950 ms |
 | Limpar resumo (retoque) | A barra desce antes de sair | 280 ms |
 | Rolagem (retoque) | Inclusos: painel sobe, ícones acendem em sequência. Como começamos: prancheta sobe, itens do contrato entram, a caneta assina (DrawSVG + caneta acompanhando o traço), selo "Assinado" salta; etapas e setas uma a uma; faixa do prazo por último. Condições: uma a uma | 0,6–2,3 s, uma vez |
@@ -219,7 +219,7 @@ Tudo em `src/components/efeitos/`. Os componentes só marcam data-atributos; um 
 | `data-lanterna="claro"\|"ciano"` + `<Lanterna />` | Luz que segue o mouse dentro do elemento | Arte dos cards, painel de inclusos, passos da demo |
 | `data-lanterna-grupo` | A borda dos cards do grupo acende perto do mouse | Grade de cards, passos da demo |
 | `data-tilt` | Inclinação 3D até 3° | Arte dos cards, posts da BR Luani |
-| `data-magnetico` / `data-magnetico-filho` | Botão puxado até 6 px; rótulo anda metade a mais | Escolher, Ver como funciona, Acessórios, Copiar resumo, Fechar |
+| `data-magnetico` / `data-magnetico-filho` | Botão puxado até 6 px; rótulo anda metade a mais | Escolher, Ver como funciona, Acessórios, Fechar |
 | `data-onda` / `data-onda="escuro"` | Onda de luz do ponto do clique (botão precisa de `relative overflow-hidden`) | Botões principais, abas |
 | `data-cursor-rotulo="…"` | Cursor vira pílula com o texto | Vídeo da demo ("Ampliar"), tela cheia ("Fechar"), vídeo do acessório (som) |
 | `data-cursor-claro` | Cursor branco | Cards azuis, botões e barra escuros, tela cheia |
@@ -255,7 +255,7 @@ Cada fase termina com o site rodando e um print conferido (`webapp-testing`). N�
 | **0. Projeto** | Astro 7 + React + Tailwind 4 + fontes; página em branco com fundo `#F8FCFF` | — | `npm run build` passa; `astro dev --background` abre |
 | **1. Casca visual** | Layout de `07` estático: título, pílulas, botão demo, menu de acessórios, 3 cards, "Todos os planos incluem" | `frontend-design`, `high-end-visual-design`, `design-taste-frontend` | Print em 1920×1080 e 1280×720 parece produto premium e segue a marca |
 | **2. Dados e preço** | `planos.ts`, `preco.ts` e testes | `tdd` | Testes da §8 passam |
-| **3. Interação** | Categorias (inicia em **Pro**), acessórios somando, "Escolher", barra de resumo, "Copiar resumo", Ilimitado sem acessórios | `shadcn`, `vercel-react-best-practices`, `design:ux-copy` | Tudo de `07` §1–5 funciona |
+| **3. Interação** | Categorias (inicia em **Pro**), acessórios somando, "Escolher", barra de resumo, "Fechar" | `shadcn`, `vercel-react-best-practices`, `design:ux-copy` | Tudo de `07` §1–5 funciona |
 | **4. Personalizado** | Card com sliders (5–60 s, passo 5; 1–200 vídeos) e preço ao vivo | `shadcn` | Bate com os exemplos de `03` |
 | **5. Demo** | Troca cards ↔ vídeo + textos, mantém a demo ao trocar categoria, modal de exemplo dos acessórios | — | `07` "Modo demonstração" completo |
 | **6. Admin** | Tecla L / Esc, faixa de aviso, edição no lugar, painel de custo/margem no personalizado, desfazer/refazer, restaurar padrão, exportar/importar, validação | `design:ux-copy` | Tudo de `06` funciona; teste da §8 sobre DOM passa |
@@ -273,11 +273,11 @@ Cada fase termina com o site rodando e um print conferido (`webapp-testing`). N�
 | Pro personalizado 50 × 15 s | R$ 619 |
 | Pro personalizado 30 × 30 s | R$ 894 |
 | Pro personalizado 100 × 15 s | R$ 1.169 |
-| Max personalizado 30 × 15 s | R$ 1.300 |
-| Max personalizado 60 × 15 s | R$ 2.200 |
-| Max personalizado 30 × 30 s | R$ 2.875 |
+| Essencial personalizado 30 × 15 s | R$ 149 |
+| Essencial personalizado 60 × 15 s | R$ 269 |
+| Essencial personalizado 30 × 30 s | R$ 329 |
 | Pro 50 + Locução | R$ 719 |
-| Essencial Ilimitado + qualquer acessório | acessório não aplicável |
+| Essencial 30 + Locução | R$ 249 |
 
 **Playwright (`tests/e2e/`)**
 
@@ -287,7 +287,7 @@ Cada fase termina com o site rodando e um print conferido (`webapp-testing`). N�
 - Digitar "l" dentro de um campo editável não liga/desliga o admin.
 - Esc desliga o admin.
 - Valor inválido no admin volta ao anterior.
-- "Copiar resumo" coloca na área de transferência o texto com plano, acessórios e total.
+- "Fechar" abre a tela de fechamento com plano, acessórios, total e os próximos passos; Esc volta aos planos sem perder a seleção.
 
 ## 9. Checklist de entrega
 

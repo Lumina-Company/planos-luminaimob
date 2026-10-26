@@ -31,9 +31,9 @@ A foto do imóvel com movimento de zoom e uma moldura padrão com os dados do im
 |---|---|---|---|---|
 | Essencial 30 | 30 | **R$ 149** | R$ 4,97 | |
 | Essencial 60 | 60 | **R$ 269** | R$ 4,48 | **Recomendado** (C) |
-| Essencial Ilimitado | ilimitado: posta todo imóvel novo da carteira, sem teto; sempre 15 s (C) | **R$ 300** | — | |
+| Essencial Personalizado | duração e quantidade escolhidas na call | calculadora | — | |
 
-Sem personalizado (o Ilimitado cobre).
+**Mudança de 2026-10-26 (Lucas):** o Essencial Ilimitado (R$ 300) saiu; no lugar entrou o Personalizado, com a mesma calculadora do Pro (ver "Personalizado" abaixo).
 
 ### Pro — vídeo gerado por IA a partir das fotos
 
@@ -45,15 +45,9 @@ Vídeo de até 15 s que passeia pelos cômodos como se alguém andasse ou um dro
 | Pro 50 | 50 | **R$ 619** | R$ 12,38 | **Recomendado** (C) |
 | Pro Personalizado | duração e quantidade escolhidas na call | calculadora | — | |
 
-### Max — geração por IA de qualidade superior
+### Max — **removido em 2026-10-26** (Lucas)
 
-Mesmo conceito do Pro, com motor de IA de qualidade superior. **No site: só "Max" / "IA Max". Nunca citar o fornecedor (Seedance).**
-
-| Faixa | Vídeos/mês | Preço/mês | Preço por vídeo | Selo |
-|---|---|---|---|---|
-| Max 30 | 30 | **R$ 1.300** | R$ 43,33 | **Recomendado** (C) |
-| Max 60 | 60 | **R$ 2.200** | R$ 36,67 | |
-| Max Personalizado | duração e quantidade escolhidas na call | calculadora | — | |
+O Max (R$ 1.300 / R$ 2.200 / Personalizado) não existe mais. O vídeo de demonstração dele passou a ser o do **Pro** (`public/video/pro-demo.mp4`). Histórico de preço e parâmetros do Max: `90-INTERNO-custos-e-margens.md` e `git log`.
 
 ## Acessórios
 
@@ -64,9 +58,9 @@ Somam ao plano. **Preço fixo por mês, valem para todos os vídeos da franquia.
 | **Motion Graphics** | Vídeo inteiro animado; os dados do imóvel entram animados na tela em vez da moldura | **R$ 400/mês** |
 | **Locução por IA** | Narração no vídeo | **R$ 100/mês** |
 
-Onde valem (C): **em todas as faixas, exceto no Essencial Ilimitado.** Motivo: com acessório de preço fixo e vídeos sem teto, o custo não tem limite (ver `90-INTERNO`). No card do Ilimitado aparece "Acessórios não disponíveis no Ilimitado"; quem quer acessório no Essencial escolhe 30 ou 60.
+Onde valem: **em todas as faixas e nos dois Personalizados.** (Antes, o Essencial Ilimitado não aceitava acessório porque não tinha teto de vídeos; com ele fora, todo plano tem franquia.)
 
-## O que todo plano inclui (Essencial, Pro e Max)
+## O que todo plano inclui (Essencial e Pro)
 
 - Leitura automática da base de imóveis da imobiliária (XML dos portais)
 - Legenda escrita por IA, no tom da imobiliária
@@ -92,7 +86,7 @@ Onde valem (C): **em todas as faixas, exceto no Essencial Ilimitado.** Motivo: c
 | Troca de plano | **Subir:** na hora, cobrando a diferença proporcional do mês. **Descer:** vale no mês seguinte (C) |
 | Unidade de cobrança | **Um plano por perfil**: 1 Instagram + 1 TikTok + 1 YouTube. Segundo perfil = segundo plano (C) |
 
-## Personalizado (Pro e Max): card com calculadora
+## Personalizado (Essencial e Pro): card com calculadora
 
 Card "Personalizado", sempre o último à direita, com os controles e o preço dentro dele. O cliente escolhe **duração por vídeo** (5 s a 60 s, passo de 5 s) e **vídeos por mês** (1 a 200). Fora do admin mostra **só duração, quantidade e preço**.
 
@@ -101,17 +95,17 @@ preço por vídeo = taxa fixa + preço/s até 15 s × min(duração, 15) + preç
 preço mensal    = base mensal + quantidade × preço por vídeo
 ```
 
-| Parâmetro | Pro | Max |
+| Parâmetro | Essencial | Pro |
 |---|---|---|
-| Base mensal | R$ 69 | R$ 400 |
-| Taxa fixa por vídeo | R$ 2,00 | R$ 0,00 (C) |
-| Preço/s até 15 s | R$ 0,60 | R$ 2,00 (C) |
-| Preço/s acima de 15 s | R$ 1,10 | R$ 3,50 (C) |
-| Custo API/s (só admin) | US$ 0,084 | US$ 0,374 |
-| Resultado 30 × 15 s | R$ 399 ✅ tabela | R$ 1.300 ✅ tabela |
-| Resultado 50 × 15 s / 60 × 15 s | R$ 619 ✅ tabela (50) | R$ 2.200 ✅ tabela (60) |
+| Base mensal | R$ 29 (C) | R$ 69 |
+| Taxa fixa por vídeo | R$ 1,00 (C) | R$ 2,00 |
+| Preço/s até 15 s | R$ 0,20 (C) | R$ 0,60 |
+| Preço/s acima de 15 s | R$ 0,40 (C) | R$ 1,10 |
+| Custo API/s (só admin) | US$ 0 (zoom, sem IA; legenda e infra não medidos) | US$ 0,084 |
+| Resultado 30 × 15 s | R$ 149 ✅ tabela | R$ 399 ✅ tabela |
+| Resultado 60 × 15 s / 50 × 15 s | R$ 269 ✅ tabela (60) | R$ 619 ✅ tabela (50) |
 
-Max recalibrado para bater com a tabela que o Lucas escolheu (base R$ 400 + R$ 30 por vídeo de 15 s). O segundo além de 15 s ficou em **R$ 3,50** (C): o custo de API do Max é ~R$ 2,13 por segundo, então cada segundo extra tem margem (~39%), em vez de aprofundar o prejuízo dos primeiros 15 s. Exemplo: Max 30 × 30 s = R$ 400 + 30 × (30 + 52,50) = **R$ 2.875**.
+**Essencial (C, 2026-10-26):** o Lucas pediu "os mesmos parâmetros do personalizado"; os valores foram calibrados para o Personalizado bater com a tabela do Essencial (base R$ 29 + R$ 4 por vídeo de 15 s: 30 × 15 s = R$ 149 e 60 × 15 s = R$ 269). O preço/s acima de 15 s (R$ 0,40, o dobro do trecho até 15 s) é palpite do Claude: revisar. Exemplo: Essencial 30 × 30 s = R$ 29 + 30 × (1 + 3 + 6) = **R$ 329**.
 
 Exemplos do Pro personalizado: 30 × 30 s = R$ 894; 100 × 15 s = R$ 1.169.
 
@@ -121,6 +115,5 @@ Exemplos do Pro personalizado: 30 × 30 s = R$ 894; 100 × 15 s = R$ 1.169.
 |---|---|---|
 | **Essencial** | Zoom | zoom + moldura, sem IA |
 | **Pro** | IA Básica / Geração básica IA | vídeo por IA |
-| **Max** | IA Max / Geração IA Max (com Seedance) | vídeo por IA superior |
 
 Produto: **LuminaImob**, junto (C) — é a grafia dos criativos, da logo e da calculadora.
