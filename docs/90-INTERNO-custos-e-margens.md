@@ -27,7 +27,7 @@ A duração pesa muito no custo.
 
 | Faixa | Preço | Custo API | Margem bruta |
 |---|---|---|---|
-| Zoom 30 / 60 / Ilimitado | R$ 149 / 269 / 300 | ~R$ 0 de geração (só legenda e infra) | alta; "ilimitado" sem teto de custo de legenda/infra |
+| Zoom 30 / 60 / Ilimitado | R$ 189 / 297 / — (histórico: 149 / 269 / 300 até 2026-10-27) | ~R$ 0 de geração (só legenda e infra) | alta; "ilimitado" sem teto de custo de legenda/infra |
 | Básica 30 × 15 s | R$ 399 | R$ 215 | **46%** (abaixo do alvo de 50%) |
 | Básica 50 × 15 s | R$ 619 | R$ 359 | **42%** (abaixo do alvo) |
 | Max 30 × 15 s | R$ 1.300 | R$ 959 | **26%** |

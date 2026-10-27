@@ -29,9 +29,11 @@ A foto do imóvel com movimento de zoom e uma moldura padrão com os dados do im
 
 | Faixa | Vídeos/mês | Preço/mês | Preço por vídeo | Selo |
 |---|---|---|---|---|
-| Essencial 30 | 30 | **R$ 149** | R$ 4,97 | |
-| Essencial 60 | 60 | **R$ 269** | R$ 4,48 | **Recomendado** (C) |
+| Essencial 30 | 30 | **R$ 189** | R$ 6,30 | |
+| Essencial 60 | 60 | **R$ 297** | R$ 4,95 | **Recomendado** (C) |
 | Essencial Personalizado | duração e quantidade escolhidas na call | calculadora | — | |
+
+**Mudança de 2026-10-27 (Lucas):** preço do Essencial subiu — Essencial 30 de R$ 149 para **R$ 189** e Essencial 60 de R$ 269 para **R$ 297**. Os parâmetros do Personalizado do Essencial foram recalibrados para bater com a nova tabela (ver abaixo).
 
 **Mudança de 2026-10-26 (Lucas):** o Essencial Ilimitado (R$ 300) saiu; no lugar entrou o Personalizado, com a mesma calculadora do Pro (ver "Personalizado" abaixo).
 
@@ -97,15 +99,15 @@ preço mensal    = base mensal + quantidade × preço por vídeo
 
 | Parâmetro | Essencial | Pro |
 |---|---|---|
-| Base mensal | R$ 29 (C) | R$ 69 |
-| Taxa fixa por vídeo | R$ 1,00 (C) | R$ 2,00 |
+| Base mensal | R$ 81 (C) | R$ 69 |
+| Taxa fixa por vídeo | R$ 0,60 (C) | R$ 2,00 |
 | Preço/s até 15 s | R$ 0,20 (C) | R$ 0,60 |
 | Preço/s acima de 15 s | R$ 0,40 (C) | R$ 1,10 |
 | Custo API/s (só admin) | US$ 0 (zoom, sem IA; legenda e infra não medidos) | US$ 0,084 |
-| Resultado 30 × 15 s | R$ 149 ✅ tabela | R$ 399 ✅ tabela |
-| Resultado 60 × 15 s / 50 × 15 s | R$ 269 ✅ tabela (60) | R$ 619 ✅ tabela (50) |
+| Resultado 30 × 15 s | R$ 189 ✅ tabela | R$ 399 ✅ tabela |
+| Resultado 60 × 15 s / 50 × 15 s | R$ 297 ✅ tabela (60) | R$ 619 ✅ tabela (50) |
 
-**Essencial (C, 2026-10-26):** o Lucas pediu "os mesmos parâmetros do personalizado"; os valores foram calibrados para o Personalizado bater com a tabela do Essencial (base R$ 29 + R$ 4 por vídeo de 15 s: 30 × 15 s = R$ 149 e 60 × 15 s = R$ 269). O preço/s acima de 15 s (R$ 0,40, o dobro do trecho até 15 s) é palpite do Claude: revisar. Exemplo: Essencial 30 × 30 s = R$ 29 + 30 × (1 + 3 + 6) = **R$ 329**.
+**Essencial (C, 2026-10-27):** o Lucas pediu "os mesmos parâmetros do personalizado"; os valores foram recalibrados para o Personalizado bater com a nova tabela do Essencial (base R$ 81 + R$ 3,60 por vídeo de 15 s: 30 × 15 s = R$ 189 e 60 × 15 s = R$ 297). Com dois pontos fixos, base e preço por vídeo ficam determinados: a base subiu de R$ 29 para R$ 81 e o preço por vídeo caiu de R$ 4,00 para R$ 3,60. O preço/s acima de 15 s (R$ 0,40, o dobro do trecho até 15 s) é palpite do Claude: revisar. Exemplo: Essencial 30 × 30 s = R$ 81 + 30 × (0,60 + 3 + 6) = **R$ 369**.
 
 Exemplos do Pro personalizado: 30 × 30 s = R$ 894; 100 × 15 s = R$ 1.169.
 

@@ -10,7 +10,7 @@
 | M1 | Categoria **Max** | **Removida** do site (A2, A6, B10 e LAY8 abaixo ficam só como histórico). Sobram Essencial e Pro |
 | M2 | Vídeo de demo do Max | Passou para o **Pro**: `public/video/pro-demo.mp4` agora é o antigo `max-demo.mp4`. Os posts da BR Luani deixaram de ser a demo do Pro; o selo do Pro virou "Exemplo em produção" |
 | M3 | **Essencial Ilimitado** (R$ 300) | Virou **Essencial Personalizado**, com a mesma calculadora do Pro (B2, B5 e B12 ficam só como histórico). Acessórios agora valem em todos os cards |
-| M4 (C) | Valores do Essencial Personalizado | Base R$ 29, taxa fixa R$ 1,00, R$ 0,20/s até 15 s, R$ 0,40/s acima. Bate com a tabela (30 × 15 s = R$ 149; 60 × 15 s = R$ 269). **O R$ 0,40/s acima de 15 s é palpite: revisar.** Custo/s no admin = 0 (só legenda e infra, não medidos) |
+| M4 (C) | Valores do Essencial Personalizado | Base R$ 81, taxa fixa R$ 0,60, R$ 0,20/s até 15 s, R$ 0,40/s acima (recalibrado em 2026-10-27). Bate com a tabela (30 × 15 s = R$ 189; 60 × 15 s = R$ 297). **O R$ 0,40/s acima de 15 s é palpite: revisar.** Custo/s no admin = 0 (só legenda e infra, não medidos) |
 
 ## Decididas pelo Lucas (2026-10-16)
 

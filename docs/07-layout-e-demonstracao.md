@@ -58,7 +58,7 @@
 
 | Categoria | Cards |
 |---|---|
-| Essencial | Essencial 30 · R$ 149 — Essencial 60 · R$ 269 — **Personalizado** |
+| Essencial | Essencial 30 · R$ 189 — Essencial 60 · R$ 297 — **Personalizado** |
 | Pro | Pro 30 · R$ 399 — Pro 50 · R$ 619 — **Personalizado** |
 
 Cada card, de cima para baixo:

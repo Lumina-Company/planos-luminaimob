@@ -8,9 +8,9 @@ const acessorios = conteudoPadrao.acessorios;
 
 describe("personalizado bate com a tabela de docs/03", () => {
   it.each([
-    ["Essencial 30 × 15 s", essencial, 30, 15, 149],
-    ["Essencial 60 × 15 s", essencial, 60, 15, 269],
-    ["Essencial 30 × 30 s", essencial, 30, 30, 329],
+    ["Essencial 30 × 15 s", essencial, 30, 15, 189],
+    ["Essencial 60 × 15 s", essencial, 60, 15, 297],
+    ["Essencial 30 × 30 s", essencial, 30, 30, 369],
     ["Pro 30 × 15 s", pro, 30, 15, 399],
     ["Pro 50 × 15 s", pro, 50, 15, 619],
     ["Pro 30 × 30 s", pro, 30, 30, 894],
@@ -20,8 +20,8 @@ describe("personalizado bate com a tabela de docs/03", () => {
   });
 
   it("preço por vídeo usa a fórmula em dois trechos", () => {
-    expect(precoPorVideoPersonalizado(essencial, 15)).toBeCloseTo(4, 2);
-    expect(precoPorVideoPersonalizado(essencial, 30)).toBeCloseTo(10, 2);
+    expect(precoPorVideoPersonalizado(essencial, 15)).toBeCloseTo(3.6, 2);
+    expect(precoPorVideoPersonalizado(essencial, 30)).toBeCloseTo(9.6, 2);
     expect(precoPorVideoPersonalizado(pro, 15)).toBeCloseTo(11, 2);
     expect(precoPorVideoPersonalizado(pro, 30)).toBeCloseTo(27.5, 2);
   });
@@ -32,8 +32,8 @@ describe("faixas fixas", () => {
     conteudoPadrao.categorias[cat].faixas.find((f) => f.id === id)!;
 
   it("preços da tabela", () => {
-    expect(faixa("essencial", "essencial-30").preco).toBe(149);
-    expect(faixa("essencial", "essencial-60").preco).toBe(269);
+    expect(faixa("essencial", "essencial-30").preco).toBe(189);
+    expect(faixa("essencial", "essencial-60").preco).toBe(297);
     expect(faixa("pro", "pro-30").preco).toBe(399);
     expect(faixa("pro", "pro-50").preco).toBe(619);
   });
@@ -46,8 +46,8 @@ describe("faixas fixas", () => {
     expect(totalComAcessorios(399, true, ["motion", "locucao"], acessorios)).toBe(899);
   });
 
-  it("Essencial 30 + Locução = R$ 249", () => {
-    expect(totalComAcessorios(faixa("essencial", "essencial-30").preco, true, ["locucao"], acessorios)).toBe(249);
+  it("Essencial 30 + Locução = R$ 289", () => {
+    expect(totalComAcessorios(faixa("essencial", "essencial-30").preco, true, ["locucao"], acessorios)).toBe(289);
   });
 });
 

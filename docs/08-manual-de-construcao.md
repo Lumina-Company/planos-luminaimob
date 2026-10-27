@@ -273,9 +273,9 @@ Cada fase termina com o site rodando e um print conferido (`webapp-testing`). N�
 | Pro personalizado 50 × 15 s | R$ 619 |
 | Pro personalizado 30 × 30 s | R$ 894 |
 | Pro personalizado 100 × 15 s | R$ 1.169 |
-| Essencial personalizado 30 × 15 s | R$ 149 |
-| Essencial personalizado 60 × 15 s | R$ 269 |
-| Essencial personalizado 30 × 30 s | R$ 329 |
+| Essencial personalizado 30 × 15 s | R$ 189 |
+| Essencial personalizado 60 × 15 s | R$ 297 |
+| Essencial personalizado 30 × 30 s | R$ 369 |
 | Pro 50 + Locução | R$ 719 |
 | Essencial 30 + Locução | R$ 249 |
 

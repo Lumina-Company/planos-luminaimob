@@ -117,13 +117,13 @@ export const conteudoPadrao: Conteudo = {
         "Sem IA na edição",
       ],
       faixas: [
-        { id: "essencial-30", nome: "Essencial 30", videos: 30, duracao: 15, preco: 149, aceitaAcessorios: true },
-        { id: "essencial-60", nome: "Essencial 60", videos: 60, duracao: 15, preco: 269, aceitaAcessorios: true },
+        { id: "essencial-30", nome: "Essencial 30", videos: 30, duracao: 15, preco: 189, aceitaAcessorios: true },
+        { id: "essencial-60", nome: "Essencial 60", videos: 60, duracao: 15, preco: 297, aceitaAcessorios: true },
       ],
       personalizado: {
         nome: "Personalizado",
         descricao: "Duração e quantidade do seu jeito",
-        parametros: { base: 29, taxaFixa: 1, precoAte15: 0.2, precoAcima15: 0.4 },
+        parametros: { base: 81, taxaFixa: 0.6, precoAte15: 0.2, precoAcima15: 0.4 },
       },
     },
     pro: {

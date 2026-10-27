@@ -197,16 +197,16 @@ test("personalizado do Pro: 30 × 30 s = R$ 894", async ({ page }) => {
   await expect(card(page, "Pro Personalizado")).toContainText("894");
 });
 
-test("personalizado do Essencial: 30 × 15 s = R$ 149; 30 × 30 s = R$ 329", async ({ page }) => {
+test("personalizado do Essencial: 30 × 15 s = R$ 189; 30 × 30 s = R$ 369", async ({ page }) => {
   await abrir(page);
   await page.getByRole("tab", { name: "Essencial" }).click();
   const personalizado = card(page, "Essencial Personalizado");
-  await expect(personalizado).toContainText("149");
+  await expect(personalizado).toContainText("189");
   const slider = personalizado.getByRole("slider", { name: "Duração por vídeo" });
   await slider.focus();
   for (let i = 0; i < 3; i++) await page.keyboard.press("ArrowRight");
   await page.waitForTimeout(400);
-  await expect(personalizado).toContainText("329");
+  await expect(personalizado).toContainText("369");
 });
 
 test("localStorage bloqueado: abre com o padrão, sem erro", async ({ page }) => {

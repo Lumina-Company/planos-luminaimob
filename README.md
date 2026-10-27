@@ -31,7 +31,7 @@ Uso: **apoio em call de venda** (mostrado ao dono da imobiliária na reunião).
 
 | Plano | Nível de vídeo | Faixa 1 | Faixa 2 | Faixa 3 |
 |---|---|---|---|---|
-| Essencial | zoom + moldura, sem IA | 30 vídeos R$ 149 | 60 vídeos R$ 269 | Personalizado |
+| Essencial | zoom + moldura, sem IA | 30 vídeos R$ 189 | 60 vídeos R$ 297 | Personalizado |
 | Pro | vídeo por IA | 30 vídeos R$ 399 | 50 vídeos R$ 619 | Personalizado |
 
 Acessórios (fixos, valem para todos os vídeos): Motion Graphics R$ 400/mês · Locução por IA R$ 100/mês.
